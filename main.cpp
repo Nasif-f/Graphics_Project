@@ -31,32 +31,6 @@ struct RainDrop {
 Star stars[MAX_STARS];
 RainDrop rain[MAX_RAIN];
 
-// Function declarations
-void renderBitmapString(float x, float y, void *font, const char *string);
-void initStars();
-void initRain();
-void drawStars();
-void drawRain();
-void LITTLE_BOAT();
-void BOAT();
-void AIR();
-void LAND_BOUNDARY();
-void drawCircle(float cx, float cy, float r, int segments = 100);
-void CLOUD(float x, float y);
-void SUN();
-void MOON();
-void RIVER();
-void TREE(float x, float y);
-void BUSH(float x, float y);
-void WOODEN_SIGNBOARD(float x, float y);
-void PARK_BENCH(float x, float y);
-void COTTAGE(float x, float y);
-void FLOWER(float x, float y);
-void display_Scenario1();
-void updateScene(int value);
-void handleKeypress(unsigned char key, int x, int y);
-void init();
-
 // --- Helper Functions ---
 
 void renderBitmapString(float x, float y, void *font, const char *string) {
@@ -144,7 +118,12 @@ void LITTLE_BOAT() {
 
     // Cabin window
     glColor3f(0.9f, 0.9f, 1.0f);
-    drawCircle(1050, 395, 8);
+    glBegin(GL_POLYGON);
+    for (int i = 0; i < 50; i++) {
+        float angle = 2.0f * 3.1415926f * i / 50;
+        glVertex2f(1050 + 8 * cos(angle), 395 + 8 * sin(angle));
+    }
+    glEnd();
 
     glPopMatrix();
 }
@@ -189,11 +168,6 @@ void BOAT() {
     glVertex2f(520, 40);
     glVertex2f(615, 85);
     glEnd();
-
-    // Windows on cabin
-    glColor3f(0.9f, 0.95f, 1.0f);
-    drawCircle(570, 160, 12);
-    drawCircle(590, 140, 10);
 }
 
 void AIR() {
@@ -252,7 +226,7 @@ void LAND_BOUNDARY() {
     glEnd();
 }
 
-void drawCircle(float cx, float cy, float r, int segments) {
+void drawCircle(float cx, float cy, float r, int segments = 100) {
     float angle;
     glBegin(GL_POLYGON);
     for (int i = 0; i < segments; i++) {
@@ -266,16 +240,16 @@ void CLOUD(float x, float y) {
     glPushMatrix();
     glTranslatef(cloudOffsetX, 0.0f, 0.0f);
     glColor3f(0.98f, 0.98f, 0.98f);
-    drawCircle(x, y, 35, 100);
-    drawCircle(x - 25, y, 30, 100);
-    drawCircle(x + 25, y, 30, 100);
-    drawCircle(x - 15, y + 25, 25, 100);
-    drawCircle(x + 15, y + 25, 25, 100);
+    drawCircle(x, y, 35);
+    drawCircle(x - 25, y, 30);
+    drawCircle(x + 25, y, 30);
+    drawCircle(x - 15, y + 25, 25);
+    drawCircle(x + 15, y + 25, 25);
     
     // Cloud shadow
     glColor3f(0.88f, 0.88f, 0.88f);
-    drawCircle(x - 5, y - 5, 30, 100);
-    drawCircle(x - 30, y - 5, 25, 100);
+    drawCircle(x - 5, y - 5, 30);
+    drawCircle(x - 30, y - 5, 25);
     glPopMatrix();
 }
 
@@ -286,11 +260,11 @@ void SUN() {
     
     // Sun glow effect
     glColor4f(1.0f, 0.9f, 0.3f, 0.3f);
-    drawCircle(cx, cy, r + 20, 100);
+    drawCircle(cx, cy, r + 20);
     
     // Main sun
     glColor3f(1.0f, 0.843f, 0.0f);
-    drawCircle(cx, cy, r, 100);
+    drawCircle(cx, cy, r);
 
     // Sun rays
     glColor3f(1.0f, 0.8f, 0.2f);
@@ -315,17 +289,17 @@ void MOON() {
     
     // Moon glow
     glColor4f(1.0f, 1.0f, 0.95f, 0.2f);
-    drawCircle(cx, cy, r + 15, 100);
+    drawCircle(cx, cy, r + 15);
     
     // Main moon
     glColor3f(1.0f, 1.0f, 0.95f);
-    drawCircle(cx, cy, r, 100);
+    drawCircle(cx, cy, r);
     
     // Moon craters
     glColor3f(0.9f, 0.9f, 0.85f);
-    drawCircle(cx - 10, cy + 10, 5, 50);
-    drawCircle(cx + 15, cy - 5, 7, 50);
-    drawCircle(cx + 5, cy + 15, 4, 50);
+    drawCircle(cx - 10, cy + 10, 5);
+    drawCircle(cx + 15, cy - 5, 7);
+    drawCircle(cx + 5, cy + 15, 4);
 }
 
 void RIVER() {
@@ -340,17 +314,6 @@ void RIVER() {
     glColor3f(0.4f, 0.6f, 0.8f);
     glVertex2f(0, 480);
     glEnd();
-    
-    // River highlights (ripples)
-    if (!isRaining) {
-        glColor4f(1.0f, 1.0f, 1.0f, 0.3f);
-        for (int i = 0; i < 5; i++) {
-            float yPos = 300 + i * 30;
-            float offset = sin(glutGet(GLUT_ELAPSED_TIME) * 0.001 + i) * 50;
-            drawCircle(400 + offset, yPos, 20, 50);
-            drawCircle(800 + offset, yPos, 20, 50);
-        }
-    }
 }
 
 void TREE(float x, float y) {
@@ -367,29 +330,29 @@ void TREE(float x, float y) {
 
     // Tree foliage layers
     glColor3f(0.0f, 0.7f, 0.15f);
-    drawCircle(x, y + 150, 50, 100);
+    drawCircle(x, y + 150, 50);
     
     glColor3f(0.0f, 0.65f, 0.1f);
-    drawCircle(x - 40, y + 140, 45, 100);
-    drawCircle(x + 40, y + 140, 45, 100);
+    drawCircle(x - 40, y + 140, 45);
+    drawCircle(x + 40, y + 140, 45);
     
     glColor3f(0.0f, 0.6f, 0.05f);
-    drawCircle(x - 25, y + 120, 40, 100);
-    drawCircle(x + 25, y + 120, 40, 100);
-    drawCircle(x, y + 170, 35, 100);
+    drawCircle(x - 25, y + 120, 40);
+    drawCircle(x + 25, y + 120, 40);
+    drawCircle(x, y + 170, 35);
 }
 
 void BUSH(float x, float y) {
     glColor3f(0.0f, 0.7f, 0.2f);
-    drawCircle(x, y, 20, 100);
+    drawCircle(x, y, 20);
     
     glColor3f(0.0f, 0.65f, 0.15f);
-    drawCircle(x - 15, y - 8, 18, 100);
-    drawCircle(x + 15, y - 8, 18, 100);
+    drawCircle(x - 15, y - 8, 18);
+    drawCircle(x + 15, y - 8, 18);
     
     glColor3f(0.0f, 0.6f, 0.1f);
-    drawCircle(x - 20, y, 15, 100);
-    drawCircle(x + 20, y, 15, 100);
+    drawCircle(x - 20, y, 15);
+    drawCircle(x + 20, y, 15);
 }
 
 void WOODEN_SIGNBOARD(float x, float y) {
@@ -488,23 +451,6 @@ void PARK_BENCH(float x, float y) {
     glVertex2f(x - 40, y + 15); glVertex2f(x - 40, y + 25);
     glVertex2f(x + 40, y + 15); glVertex2f(x + 40, y + 25);
     glEnd();
-
-    // Bench armrests
-    glBegin(GL_POLYGON);
-    glColor3f(0.55f, 0.3f, 0.1f);
-    glVertex2f(x - 50, y + 15);
-    glVertex2f(x - 45, y + 15);
-    glVertex2f(x - 45, y + 30);
-    glVertex2f(x - 50, y + 30);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glColor3f(0.55f, 0.3f, 0.1f);
-    glVertex2f(x + 50, y + 15);
-    glVertex2f(x + 45, y + 15);
-    glVertex2f(x + 45, y + 30);
-    glVertex2f(x + 50, y + 30);
-    glEnd();
 }
 
 void COTTAGE(float x, float y) {
@@ -579,9 +525,9 @@ void COTTAGE(float x, float y) {
 
     // Doorknob with highlight
     glColor3f(0.9f, 0.9f, 0.2f);
-    drawCircle(x + 18, y + 30, 4, 30);
+    drawCircle(x + 18, y + 30, 4);
     glColor3f(1.0f, 1.0f, 0.0f);
-    drawCircle(x + 18, y + 30, 2, 30);
+    drawCircle(x + 18, y + 30, 2);
 
     // Enhanced windows with frames and curtains
     // Left window
@@ -651,15 +597,6 @@ void COTTAGE(float x, float y) {
     glVertex2f(x + 25, y + 150);
     glEnd();
 
-    // Smoke from chimney (if day and not raining)
-    if (isDay && !isRaining) {
-        glColor4f(0.8f, 0.8f, 0.8f, 0.7f);
-        float smokeY = y + 155 + sin(glutGet(GLUT_ELAPSED_TIME) * 0.001) * 5;
-        drawCircle(x + 45, smokeY, 10, 50);
-        drawCircle(x + 40, smokeY + 15, 12, 50);
-        drawCircle(x + 50, smokeY + 25, 14, 50);
-    }
-
     // House foundation
     glBegin(GL_POLYGON);
     glColor3f(0.4f, 0.35f, 0.3f);
@@ -674,35 +611,16 @@ void COTTAGE(float x, float y) {
 void FLOWER(float x, float y) {
     // Flower petals with gradient
     glColor3f(1.0f, 0.6f, 0.8f);
-    drawCircle(x + 7, y, 8, 50);
-    drawCircle(x - 7, y, 8, 50);
-    drawCircle(x, y + 7, 8, 50);
-    drawCircle(x, y - 7, 8, 50);
-    
-    glColor3f(1.0f, 0.8f, 0.9f);
-    drawCircle(x + 5, y + 5, 6, 50);
-    drawCircle(x - 5, y + 5, 6, 50);
-    drawCircle(x + 5, y - 5, 6, 50);
-    drawCircle(x - 5, y - 5, 6, 50);
+    drawCircle(x + 7, y, 8);
+    drawCircle(x - 7, y, 8);
+    drawCircle(x, y + 7, 8);
+    drawCircle(x, y - 7, 8);
     
     // Flower center with highlight
     glColor3f(1.0f, 0.9f, 0.3f);
-    drawCircle(x, y, 6, 50);
+    drawCircle(x, y, 6);
     glColor3f(1.0f, 1.0f, 0.0f);
-    drawCircle(x, y, 3, 30);
-    
-    // Stem
-    glColor3f(0.0f, 0.6f, 0.1f);
-    glLineWidth(3.0f);
-    glBegin(GL_LINES);
-    glVertex2f(x, y - 7);
-    glVertex2f(x, y - 25);
-    glEnd();
-    
-    // Leaves
-    glColor3f(0.0f, 0.7f, 0.2f);
-    drawCircle(x + 5, y - 15, 6, 40);
-    drawCircle(x - 5, y - 20, 7, 40);
+    drawCircle(x, y, 3);
 }
 
 void display_Scenario1() {
@@ -716,4 +634,119 @@ void display_Scenario1() {
     
     // Instructions
     glColor3f(0.8f, 0.8f, 0.8f);
-    renderBitmapString(10, 720, GLUT_BITMAP_9_BY_15, "D: Day/Night  R: Rain  B: Boat Stop/
+    renderBitmapString(10, 720, GLUT_BITMAP_9_BY_15, "D: Day/Night  R: Rain  B: Boat Stop/Start  ESC: Exit");
+
+    AIR();
+    LAND_BOUNDARY();
+    RIVER();
+    LITTLE_BOAT();
+    SUN();
+    MOON();
+    
+    if (!isDay) {
+        drawStars(); // Draw stars only at night
+    }
+
+    if (isRaining) {
+        drawRain(); // Draw rain on top if raining
+    }
+
+    BOAT();
+    CLOUD(450, 580); 
+    CLOUD(700, 680); 
+    CLOUD(150, 650);
+    
+    TREE(200, 90); 
+    TREE(1080, 180);
+    TREE(920, 150); 
+    TREE(720, 40);
+    
+    BUSH(100, 50);
+    BUSH(280, 60); 
+    BUSH(850, 160);
+    
+    FLOWER(100, 50);
+    FLOWER(280, 60); 
+    FLOWER(850, 160);
+
+    WOODEN_SIGNBOARD(880, 80);
+    PARK_BENCH(90, 90);
+    
+    // Draw the enhanced cottage
+    COTTAGE(1080, 75);
+
+    glFlush();
+    glutSwapBuffers();
+}
+
+// --- Updates and Inputs ---
+
+void updateScene(int value) {
+    if (boatMoving && boatSpeed > 0.0f) {
+        boatOffsetX -= boatSpeed;
+        if (boatOffsetX < -1200) boatOffsetX = 0;
+    }
+
+    cloudOffsetX += 0.5f;
+    if (cloudOffsetX > 1200) cloudOffsetX = -200;
+
+    if (isRaining) {
+        for (int i = 0; i < MAX_RAIN; i++) {
+            rain[i].y -= rain[i].speed;
+            if (rain[i].y < 0) {
+                rain[i].x = rand() % 1150;
+                rain[i].y = 750 + rand() % 100;
+            }
+        }
+    }
+
+    glutPostRedisplay();
+    glutTimerFunc(50, updateScene, 0);
+}
+
+void handleKeypress(unsigned char key, int x, int y) {
+    switch (key) {
+        case 'd': case 'D':
+            isDay = !isDay;
+            break;
+        case 'r': case 'R':
+            isRaining = !isRaining;
+            break;
+        case 'b': case 'B':
+            boatMoving = !boatMoving;
+            break;
+        case 27: // Escape key
+            exit(0);
+    }
+    glutPostRedisplay();
+}
+
+void init() {
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(0.0, 1150.0, 0.0, 750.0);
+    glMatrixMode(GL_MODELVIEW);
+
+    initStars();
+    initRain();
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+
+    glutInitWindowSize(1150, 750);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("Monpura Scenario");
+
+    init();
+
+    glutDisplayFunc(display_Scenario1);
+    glutKeyboardFunc(handleKeypress);
+
+    glutTimerFunc(50, updateScene, 0);
+
+    glutMainLoop();
+    return 0;
+}
