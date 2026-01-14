@@ -175,18 +175,15 @@ namespace Scenario1 {
         glColor3ub(254,255,254); circle(30,10,180+ cloudXOffset,660); circle(30,10,270+ cloudXOffset,635); circle(30,10,110+ cloudXOffset,635);
     }
 
-    // --- MAIN INTERFACE FUNCTIONS (Must match Main.cpp) ---
-
-    // Renamed from 'initOpenGL' to 'init'
+ 
     void init() {
-        // We do NOT set glOrtho here, because Main.cpp handles the Projection.
-        // We only initialize variables if needed.
+       .
         cloudXOffset = -1000.0;
         boatXOffset = -540.0;
     }
 
     void display() {
-        // Do NOT use glClear here, Main.cpp does it.
+       
         draw_sky(!is_Day);
         draw_sun();
         draw_moon();
@@ -205,11 +202,10 @@ namespace Scenario1 {
         draw_river(!is_Day);
         draw_river_bank();
         draw_boat(!is_Day);
-        // Do NOT use glFlush or glutSwapBuffers here.
+        
     }
 
-    // Renamed from 'updateAnimation' to 'update'
-    // Removed internal glutTimerFunc logic
+  
     void update() {
         // Sun/Moon Transition Logic
         if (animateSunMoon) {
@@ -244,7 +240,7 @@ namespace Scenario1 {
         }
     }
 
-    // Renamed from 'handleKeypress' to 'handleKey'
+   
     void handleKey(unsigned char key) {
         switch (key) {
             case 'd': // Day Trigger
