@@ -1,33 +1,84 @@
+#include <windows.h>
 #include <GL/glut.h>
-#include <math.h>
+#include "Scenario1.h"
+#include "Scenario2.h"
+#include "Scenario3.h"
+#include "Scenario4.h"
 
+typedef enum { COVER, S1, S2, S3, S4 } State;
+State currentState = COVER;
 
-void Circle(float cx, float cy, float r, int num_segments) {
-    glBegin(GL_POLYGON);
-    for (int i = 0; i < num_segments; i++) {
-        float theta = 2.0f * 3.1415926f * i / num_segments;
-        float x = r * cosf(theta);
-        float y = r * sinf(theta);
-        glVertex2f(x + cx, y + cy);
-    }
-    glEnd();
+void renderText(float x, float y, const char* text) {
+    glRasterPos2f(x, y);
+    for (int i = 0; text[i] != '\0'; i++)
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, text[i]);
 }
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
+    glLoadIdentity();
 
+    switch (currentState) {
+        case COVER:
+            glClearColor(1, 1, 1, 1);
+            glColor3f(0, 0, 0);
+            renderText(450, 400, "Scenaries in Bangladesh");
+            renderText(450, 350, "Press 1, 2, 3, or 4 to Start");
+            break;
+        case S1: Scenario1::display(); break;
+        case S2: Scenario2::display(); break;
+        case S3: Scenario3::display(); break;
+        case S4: Scenario4::display(); break;
+    }
+    glutSwapBuffers();
+}
 
+void timer(int v) {
+    Scenario1::update();
+    Scenario2::update();
+    Scenario3::update();
+    Scenario4::update();
+    glutPostRedisplay();
+    glutTimerFunc(20, timer, 0);
+}
 
+void keyboard(unsigned char key, int x, int y) {
+    if (key == '1') currentState = S1;
+    if (key == '2') currentState = S2;
+    if (key == '3') currentState = S3;
+    if (key == '4') currentState = S4;
+    if (key == 'w') currentState = COVER;
+    if (key == 27) exit(0);
 
-    glFlush();
+    else if (currentState == S1) {
+        Scenario1::handleKey(key);
+        }
+//    else if (currentState == S2) {
+//        Scenario2::handleKey(key);
+//    }else if (currentState == S3) {
+//        Scenario3::handleKey(key);
+//    }else if (currentState == S4) {
+//        Scenario4::handleKey(key);
+//    }
+
 }
 
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
-    glutInitWindowSize(800, 600);
-    glutCreateWindow("Rural home");
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitWindowSize(1150, 750);
+    glutCreateWindow("Main Application");
+
+    Scenario1::init();
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(0, 1150, 0, 750);
+    glMatrixMode(GL_MODELVIEW);
+
     glutDisplayFunc(display);
+    glutKeyboardFunc(keyboard);
+    glutTimerFunc(20, timer, 0);
     glutMainLoop();
     return 0;
 }
-
