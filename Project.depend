@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1768402841 source:e:\code\graphics_project\project\main.cpp
+1768579776 source:e:\code\graphics_project\project\main.cpp
 	<windows.h>
 	<GL/glut.h>
 	"Scenario1.h"
@@ -945,7 +945,9 @@
 1738738968 c:\program files (x86)\codeblocks\mingw\i686-w64-mingw32\include\gl\glu.h
 	<GL/gl.h>
 
-1768402231 e:\code\graphics_project\project\scenario1.h
+1768579793 e:\code\graphics_project\project\scenario1.h
+	<windows.h>
+	<mmsystem.h>
 	<GL/glut.h>
 	<math.h>
 	<time.h>

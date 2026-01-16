@@ -1,6 +1,8 @@
 #ifndef SCENARIO1_H
 #define SCENARIO1_H
 
+#include <windows.h>
+#include <mmsystem.h>
 #include <GL/glut.h>
 #include <math.h>
 #include <time.h>
@@ -24,7 +26,6 @@ namespace Scenario1 {
     bool sunToDown = false;
     bool moonToUp = false;
 
-    // --- Helper Functions ---
     void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy) {
         glBegin(GL_TRIANGLE_FAN);
         glVertex2f(cx, cy);
@@ -38,7 +39,7 @@ namespace Scenario1 {
     }
 
     // --- Drawing Functions ---
-    // (I kept your drawing functions exactly as they were, just hidden to save space)
+
     void draw_cow() {
         glColor3ub(103, 53, 53);
         glBegin(GL_POLYGON); glVertex2f(200.9, 311.6); glVertex2f(205.9, 300.4); glVertex2f(210.0, 300.3); glVertex2f(206.9, 311.7); glVertex2f(210.8, 319.2); glVertex2f(205.3, 322.7); glVertex2f(199.2, 318.1); glEnd();
@@ -64,11 +65,20 @@ namespace Scenario1 {
         glBegin(GL_POLYGON); glVertex2f(630, 330); glVertex2f(565, 334); glVertex2f(670.5, 372.5); glVertex2f(700, 373); glEnd();
     }
 
-    void draw_day_field() {
+   void draw_day_field() {
         glBegin(GL_POLYGON); glVertex2f(0, 300); glVertex2f(0, 372); glVertex2f(1150, 372); glVertex2f(1150, 200); glVertex2f(466, 270); glVertex2f(225, 271); glEnd();
         draw_cow();
         draw_day_road();
+
+        // 2nd cow
         glPushMatrix(); glTranslated(700, 10, 0); draw_cow(); glPopMatrix();
+
+        // 3rd cow
+        glPushMatrix();
+        glTranslated(550, 10, 0);
+        glRotatef(180, 0, 1, 0);
+        draw_cow();
+        glPopMatrix();
     }
 
     void draw_night_field() {
@@ -175,15 +185,16 @@ namespace Scenario1 {
         glColor3ub(254,255,254); circle(30,10,180+ cloudXOffset,660); circle(30,10,270+ cloudXOffset,635); circle(30,10,110+ cloudXOffset,635);
     }
 
- 
+
     void init() {
-       .
+
         cloudXOffset = -1000.0;
         boatXOffset = -540.0;
+    
     }
 
     void display() {
-       
+
         draw_sky(!is_Day);
         draw_sun();
         draw_moon();
@@ -202,10 +213,10 @@ namespace Scenario1 {
         draw_river(!is_Day);
         draw_river_bank();
         draw_boat(!is_Day);
-        
+
     }
 
-  
+
     void update() {
         // Sun/Moon Transition Logic
         if (animateSunMoon) {
@@ -240,7 +251,7 @@ namespace Scenario1 {
         }
     }
 
-   
+
     void handleKey(unsigned char key) {
         switch (key) {
             case 'd': // Day Trigger

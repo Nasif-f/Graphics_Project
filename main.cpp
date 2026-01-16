@@ -48,10 +48,11 @@ void keyboard(unsigned char key, int x, int y) {
     if (key == '3') currentState = S3;
     if (key == '4') currentState = S4;
     if (key == 'w') currentState = COVER;
-    if (key == 27) exit(0);
+    if (key == 'e') exit(0);
 
     else if (currentState == S1) {
         Scenario1::handleKey(key);
+        PlaySound("soothing-river-flow-372456.wav", NULL, SND_ASYNC | SND_LOOP);
         }
 //    else if (currentState == S2) {
 //        Scenario2::handleKey(key);
