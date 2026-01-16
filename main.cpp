@@ -34,34 +34,56 @@ void display() {
 }
 
 void timer(int v) {
-    Scenario1::update();
-    Scenario2::update();
-    Scenario3::update();
-    Scenario4::update();
+    // Only update the active scenario to save resources
+    if (currentState == S1) Scenario1::update();
+    else if (currentState == S2) Scenario2::update();
+    else if (currentState == S3) Scenario3::update();
+    else if (currentState == S4) Scenario4::update();
+
     glutPostRedisplay();
     glutTimerFunc(20, timer, 0);
 }
 
 void keyboard(unsigned char key, int x, int y) {
-    if (key == '1') currentState = S1;
-    if (key == '2') currentState = S2;
-    if (key == '3') currentState = S3;
-    if (key == '4') currentState = S4;
-    if (key == 'w') currentState = COVER;
-    if (key == 'e') exit(0);
 
-    else if (currentState == S1) {
-        Scenario1::handleKey(key);
+    // --- 1. NAVIGATION KEYS (Switching Scenes & Starting Sound) ---
+    if (key == '1') {
+        currentState = S1;
+        // Play river sound only once when switching
         PlaySound("soothing-river-flow-372456.wav", NULL, SND_ASYNC | SND_LOOP);
-        }
-//    else if (currentState == S2) {
-//        Scenario2::handleKey(key);
-//    }else if (currentState == S3) {
-//        Scenario3::handleKey(key);
-//    }else if (currentState == S4) {
-//        Scenario4::handleKey(key);
-//    }
+    }
+    else if (key == '2') {
+        currentState = S2;
+        // Play car sound only once when switching
+        PlaySound("car.wav", NULL, SND_ASYNC | SND_LOOP);
+    }
+    else if (key == '3') {
+        currentState = S3;
+        PlaySound(NULL, 0, 0); // Stop sound or play specific S3 sound
+    }
+    else if (key == '4') {
+        currentState = S4;
+        PlaySound(NULL, 0, 0); // Stop sound or play specific S4 sound
+    }
+    else if (key == 'w') {
+        currentState = COVER;
+        PlaySound(NULL, 0, 0); // STOP ALL SOUND when going back to cover
+    }
+    else if (key == 'e' || key == 27) { // 'e' or ESC to exit
+        exit(0);
+    }
 
+    // --- 2. INTERACTION KEYS (Controls INSIDE the scene) ---
+    else {
+        if (currentState == S1) {
+            Scenario1::handleKey(key);
+        }
+        else if (currentState == S2) {
+            Scenario2::handleKey(key);
+        }
+        // else if (currentState == S3) Scenario3::handleKey(key);
+        // else if (currentState == S4) Scenario4::handleKey(key);
+    }
 }
 
 int main(int argc, char** argv) {
@@ -71,6 +93,7 @@ int main(int argc, char** argv) {
     glutCreateWindow("Main Application");
 
     Scenario1::init();
+    Scenario2::init(); // Initialize Scenario 2 variables if needed
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
