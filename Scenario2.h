@@ -26,7 +26,7 @@ namespace Scenario2 {
     bool isPaused = false;
 
 
-    // --- Helper Function for Text Rendering ---
+    // --- Helper Function
     void renderBitmapString(float x, float y, float z, void *font, const char *string) {
         const char *c;
         glRasterPos3f(x, y, z);
@@ -42,7 +42,7 @@ namespace Scenario2 {
 
         glColor3f(r, g, b);
         glBegin(GL_TRIANGLE_FAN);
-            glVertex2f(x, y); // Center of circle
+            glVertex2f(x, y);
             for(i = 0; i <= triangleAmount; i++) {
                 glVertex2f(
                     x + (radius * cos(i * twicePi / triangleAmount)),
@@ -88,7 +88,7 @@ namespace Scenario2 {
         glVertex2f(31.6907+287, 6.58564+3+580);
         glEnd();
 
-        // Wing Details (Triangles)
+        // Wing
         glBegin(GL_TRIANGLES);
         glColor3f(0.15f, 0.15f, 0.15f);
         glVertex2f(11.49037+287, 18.26974+580);
@@ -166,7 +166,7 @@ namespace Scenario2 {
         glVertex2f(-15.5, 90.2);
         glEnd();
 
-        // Leaves (5 circles)
+        // Leaves
         drawCircle(0, 133, 40, 0.0f, 0.6f, 0.0f);
         drawCircle(-60, 146, 40, 0.0f, 0.6f, 0.0f);
         drawCircle(54, 117, 40, 0.0f, 0.6f, 0.0f);
@@ -174,7 +174,7 @@ namespace Scenario2 {
         drawCircle(-16, 183, 40, 0.0f, 0.6f, 0.0f);
     }
 
-    // TYPE C: The "Roadside" Tree (Used for the 6 trees by the road)
+    // Tree
     void draw_road_tree() {
         // Trunk
         glBegin(GL_QUADS);
@@ -185,16 +185,16 @@ namespace Scenario2 {
         glVertex2f(-7.5, 70);
         glEnd();
 
-        // Leaves (4 puffs per tree)
-        drawCircle(0, 88, 20, 0.0f, 0.4f, 0.0f);    // Center
-        drawCircle(-20, 88, 15, 0.0f, 0.4f, 0.0f); // Left
-        drawCircle(20, 88, 15, 0.0f, 0.4f, 0.0f);  // Right
-        drawCircle(0, 108, 15, 0.0f, 0.4f, 0.0f);  // Top
+        // Leaves
+        drawCircle(0, 88, 20, 0.0f, 0.4f, 0.0f);
+        drawCircle(-20, 88, 15, 0.0f, 0.4f, 0.0f);
+        drawCircle(20, 88, 15, 0.0f, 0.4f, 0.0f);
+        drawCircle(0, 108, 15, 0.0f, 0.4f, 0.0f);
     }
 
 
     void draw_flower(float x, float y, float r, float g, float b) {
-        // Stem (Brown)
+        // Stem
         glColor3f(0.4f, 0.2f, 0.0f);
         glBegin(GL_QUADS);
         glVertex2f(x, y);
@@ -203,10 +203,10 @@ namespace Scenario2 {
         glVertex2f(x, y-18);
         glEnd();
 
-        // 3 Petals using your drawCircle
-        drawCircle(x, y, 10, r, g, b);       // Left
-        drawCircle(x+11, y, 10, r, g, b);    // Right
-        drawCircle(x+5, y+5, 10, r, g, b);   // Top
+        // leaves
+        drawCircle(x, y, 10, r, g, b);
+        drawCircle(x+11, y, 10, r, g, b);
+        drawCircle(x+5, y+5, 10, r, g, b);   
     }
 
     // --- Drawing Functions ---
@@ -255,10 +255,7 @@ namespace Scenario2 {
     }
     }
 
-    void init()
-    {
-       // Any setup specific to this scenario can go here
-    }
+
     /**........................................ Back ground...........................................**/
     void Back_ground(){
     glBegin(GL_QUADS);
@@ -494,8 +491,8 @@ namespace Scenario2 {
         glVertex2f(507, 300);
         glEnd();
 
-        // --- ROUND WINDOW (Using drawCircle) ---
-        // Outer Orange Frame
+        // --- ROUND WINDOW
+
         drawCircle(563.5f, 425.0f, 56.5f, 0.95f, 0.61f, 0.07f);
 
         // Inner Dark Brown Circle
@@ -531,7 +528,7 @@ namespace Scenario2 {
     void railing() {
 
         for(int i = 0; i < 8; i++) {
-            float x = 706 + (i * 20); // Each spike is 20 pixels apart
+            float x = 706 + (i * 20);
 
             // Post (Quad)
             glBegin(GL_QUADS);
@@ -941,14 +938,14 @@ namespace Scenario2 {
     /**........................................ Tree Circle 1 ...........................................**/
     void Tree_Circle_1() {
         glPushMatrix();
-        glTranslatef(120, 300, 0); // Position of Circle Tree 1
+        glTranslatef(120, 300, 0);
         draw_gnarly_tree();
         glPopMatrix();
     }
     /**........................................ Tree Circle 2 ...........................................**/
     void Tree_Circle_2() {
         glPushMatrix();
-        glTranslatef(944, 300, 0); // Position of Circle Tree 2
+        glTranslatef(944, 300, 0);
         draw_gnarly_tree();
         glPopMatrix();
     }
@@ -990,9 +987,9 @@ namespace Scenario2 {
         // Right
         drawCircle(590, 612, 18, 1.0f, 1.0f, 1.0f);
 
-        // Shadow Detail (Gray circle underneath)
+        // Shadow
         drawCircle(570, 602, 18, 0.83f, 0.83f, 0.83f);
-        // Cover Detail (White circle on top)
+        // Cover
         drawCircle(570, 612, 18, 1.0f, 1.0f, 1.0f);
 
         glPopMatrix();
@@ -1014,7 +1011,7 @@ namespace Scenario2 {
         glPopMatrix();
 
 
-        // --- Cloud 4 (Gray) ---
+        // --- Cloud 4  ---
         glPushMatrix();
         glTranslatef(cloud_Position, 0, 0.0f);
 
@@ -1030,7 +1027,7 @@ namespace Scenario2 {
         glPopMatrix();
     }
 
-    /**-------------------------Grave---------**/
+    /**-------------------------Grave-----------------------**/
     void Grave_1(){
         glColor3f(0.4f, 0.2f, 0.0f);
         glBegin(GL_QUADS);
@@ -1129,7 +1126,7 @@ namespace Scenario2 {
             glPopMatrix();
         }
 
-        // The Green Floor Line (Road border)
+        // Road border
         glLineWidth(45.0f);
         glColor3f(0.0f, 0.4f, 0.0f);
         glBegin(GL_LINES);
@@ -1137,7 +1134,7 @@ namespace Scenario2 {
         glVertex2f(1175, 140);
         glEnd();
 
-        // That one extra shape you had
+
         glColor3f(0.6f, 0.8f, 0.4f);
         glBegin(GL_QUADS);
         glVertex2f(471, 270);
@@ -1225,7 +1222,7 @@ namespace Scenario2 {
     void Car(){
 
         glPushMatrix();
-        glTranslatef(car_position,0, 0.0f); // Moves the car based on the variable
+        glTranslatef(car_position,0, 0.0f);
 
         glColor3f(0.0f, 0.2f, 0.6f);
         glBegin(GL_QUADS);
@@ -1308,8 +1305,8 @@ namespace Scenario2 {
         glPopMatrix();
     }
 
-    
-    
+
+
     void update() {
         // Bird
         bird_Position -= 1.9f;
@@ -1362,11 +1359,14 @@ namespace Scenario2 {
 }
 
 
-
+ void init()
+    {
+       
+    }
 
     // --- Display Function ---
     void display() {
-        
+
 
         backimage();
         Sun();
@@ -1392,15 +1392,15 @@ namespace Scenario2 {
         bird();
     }
 
-    void handleKey(unsigned char key, int x,int y) {
-        // Add specific key controls for this scenario here if needed
+    void handleKey(unsigned char key) {
+
     switch (key) {
         case 'p':
         case 'P':
-            isPaused = !isPaused; // toggle pause
+            isPaused = !isPaused;
             break;
 
-        case 27: // ESC key
+        case 27: 
             exit(0);
             break;
     }

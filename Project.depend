@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1768579776 source:e:\code\graphics_project\project\main.cpp
+1768922268 source:e:\code\graphics_project\project\main.cpp
 	<windows.h>
 	<GL/glut.h>
 	"Scenario1.h"
@@ -945,7 +945,7 @@
 1738738968 c:\program files (x86)\codeblocks\mingw\i686-w64-mingw32\include\gl\glu.h
 	<GL/gl.h>
 
-1768579793 e:\code\graphics_project\project\scenario1.h
+1768921310 e:\code\graphics_project\project\scenario1.h
 	<windows.h>
 	<mmsystem.h>
 	<GL/glut.h>
@@ -973,13 +973,28 @@
 1738738964 c:\program files (x86)\codeblocks\mingw\i686-w64-mingw32\include\pthread_time.h
 	<sys/timeb.h>
 
-1768402433 e:\code\graphics_project\project\scenario2.h
-	<GL/glut.h>
-
-1768402510 e:\code\graphics_project\project\scenario3.h
-	<GL/glut.h>
-
-1768402535 e:\code\graphics_project\project\scenario4.h
+1768922911 e:\code\graphics_project\project\scenario2.h
 	<GL/glut.h>
 	<math.h>
+	<string.h>
+	<iostream>
+
+1768922063 e:\code\graphics_project\project\scenario3.h
+	<windows.h>
+	<mmsystem.h>
+	<GL/glut.h>
+	<math.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<iostream>
+
+1768922260 e:\code\graphics_project\project\scenario4.h
+	<windows.h>
+	<mmsystem.h>
+	<GL/glut.h>
+	<math.h>
+	<stdlib.h>
+	<string.h>
+	<iostream>
 

@@ -1,6 +1,8 @@
 #ifndef SCENARIO4_H
 #define SCENARIO4_H
 
+#include <windows.h>
+#include <mmsystem.h>
 #include <GL/glut.h>
 #include <math.h>
 #include <stdlib.h>
@@ -170,13 +172,13 @@ namespace Scenario4 {
     }
 
     void drawFlower(float x, float y) {
-        float cx = mapX(x); // Convert to screen coordinates
+        float cx = mapX(x);
         float cy = mapY(y);
-        float radius = 8.0f; // Size
+        float radius = 8.0f;
 
         // 1. Draw Stem
         glLineWidth(3.0f);
-        glColor3ub(34, 139, 34); // Forest Green
+        glColor3ub(34, 139, 34);
         glBegin(GL_LINES);
         glVertex2f(cx, cy);
         glVertex2f(cx, cy - 22.0f);
@@ -184,19 +186,19 @@ namespace Scenario4 {
         glLineWidth(1.0f);
 
         // 2. Draw Petals
-        if ((int)(cx) % 3 == 0) glColor3ub(255, 20, 147); // Deep Pink
-        else if ((int)(cx) % 3 == 1) glColor3ub(255, 69, 0); // Red Orange
-        else glColor3ub(255, 105, 180); // Hot pink
+        if ((int)(cx) % 3 == 0) glColor3ub(255, 20, 147);
+        else if ((int)(cx) % 3 == 1) glColor3ub(255, 69, 0);
+        else glColor3ub(255, 105, 180);
 
         glBegin(GL_TRIANGLE_FAN);
-        glVertex2f(cx, cy); // Center
+        glVertex2f(cx, cy);
         for (int i = 0; i <= 360; i += 30) {
             float angle = i * SCENARIO4_PI / 180.0f;
             glVertex2f(cx + radius * cos(angle), cy + radius * sin(angle));
         }
         glEnd();
 
-        // 3. Draw Center (Yellow)
+        // 3. Draw Center
         glColor3ub(255, 255, 0);
         glBegin(GL_TRIANGLE_FAN);
         glVertex2f(cx, cy);
@@ -577,11 +579,11 @@ namespace Scenario4 {
         glBegin(GL_LINES); glVertex2f(mapX(1.580f), mapY(0.435f)); glVertex2f(mapX(1.598f), mapY(0.395f)); glEnd();
     }
 
-    // ** NEW: Draw earthy slopes on sides of stairs **
-    void drawStairSlopes() {
-        glColor3ub(110, 90, 60); // Darker earth color for slopes
 
-        // Left Slope (connects Left Wall base to Left Stair base)
+    void drawStairSlopes() {
+        glColor3ub(110, 90, 60);
+
+        // Left Slope
         glBegin(GL_TRIANGLES);
         glVertex2f(mapX(0.941f), mapY(0.632f)); // Top-Right of slope (Left Wall Bottom)
         glVertex2f(mapX(0.82f), mapY(0.50f));   // Bottom-Right (Stair Bottom Left)
@@ -596,36 +598,36 @@ namespace Scenario4 {
         glEnd();
     }
 
-    // ** NEW: Grand Staircase **
+
     void drawGrandStaircase() {
         float topY = 0.905f;
         float bottomY = 0.50f;
 
-        // X coordinates
+
         float topX_Left = 0.94f;
         float topX_Right = 1.076f;
 
         float bottomX_Left = 0.82f;
         float bottomX_Right = 1.196f;
 
-        int steps = 15; // More steps for grander look
+        int steps = 15;
 
         for (int i = 0; i < steps; i++) {
             float t1 = (float)i / steps;
             float t2 = (float)(i + 1) / steps;
 
-            // Interpolate Y
+
             float y1 = bottomY + (topY - bottomY) * t1;
             float y2 = bottomY + (topY - bottomY) * t2;
 
-            // Interpolate X (Perspective)
+
             float xLeft1 = bottomX_Left + (topX_Left - bottomX_Left) * t1;
             float xRight1 = bottomX_Right + (topX_Right - bottomX_Right) * t1;
 
             float xLeft2 = bottomX_Left + (topX_Left - bottomX_Left) * t2;
             float xRight2 = bottomX_Right + (topX_Right - bottomX_Right) * t2;
 
-            // Draw Step Surface
+
             glBegin(GL_QUADS);
             glColor3ub(160, 130, 90); // Main step color
             glVertex2f(mapX(xLeft1), mapY(y1));
@@ -634,7 +636,7 @@ namespace Scenario4 {
             glVertex2f(mapX(xLeft1), mapY(y2));
             glEnd();
 
-            // Outline for definition
+
             glColor3ub(80, 60, 40); // Dark outline
             glLineWidth(2.0f);
             glBegin(GL_LINES);
@@ -674,7 +676,7 @@ namespace Scenario4 {
         glVertex2f(x - trunkWidth / 2 + sway * 0.25f, y + trunkHeight);
         glEnd();
 
-        // ---------- LEAVES (move more than trunk) ----------
+        // ---------- LEAVES----------
         float leafSway = sway;
 
         drawCircle(x + leafSway, y + trunkHeight,
@@ -815,7 +817,7 @@ namespace Scenario4 {
     }
 
     void display() {
-        // Main.cpp handles glClear
+
         fsky();
         drawSun();
         fcloud();
@@ -830,7 +832,7 @@ namespace Scenario4 {
 
         fRoad();
 
-        // ** UPDATED: Draw grand staircase and slopes **
+
         drawStairSlopes();
         drawGrandStaircase();
 

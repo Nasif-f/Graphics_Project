@@ -218,7 +218,7 @@ namespace Scenario1 {
 
 
     void update() {
-        // Sun/Moon Transition Logic
+        // Sun/Moon T
         if (animateSunMoon) {
             if (sunToDown && sunny > 160) sunny -= 10.0f;
             else if (!sunToDown && sunny < 660) sunny += 10.0f;
@@ -266,7 +266,7 @@ namespace Scenario1 {
                 sunToDown = true;
                 moonToUp = true;
                 break;
-            case 'a': // Manual Animation Toggle
+            case 'a': // Maual 
                 animateSunMoon = !animateSunMoon;
                 break;
         }

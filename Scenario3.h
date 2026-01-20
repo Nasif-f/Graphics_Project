@@ -1,6 +1,8 @@
 #ifndef SCENARIO3_H
 #define SCENARIO3_H
 
+#include <windows.h>
+#include <mmsystem.h>
 #include <GL/glut.h>
 #include <math.h>
 #include <stdlib.h>
@@ -46,7 +48,6 @@ namespace Scenario3 {
         }
     }
 
-    // --- Initialization ---
 
     void initStars() {
         srand(time(NULL));
@@ -103,7 +104,7 @@ namespace Scenario3 {
         glPushMatrix();
         glTranslatef(boatOffsetX, 0.0f, 0.0f);
 
-        // Boat base with gradient
+        // Boat base 
         glBegin(GL_POLYGON);
         glColor3f(0.65f, 0.45f, 0.25f);
         glVertex2f(960, 380);
@@ -114,7 +115,7 @@ namespace Scenario3 {
         glVertex2f(1140, 380);
         glEnd();
 
-        // Cabin with details
+        // Cabin 
         glBegin(GL_POLYGON);
         glColor3f(0.75f, 0.25f, 0.25f);
         glVertex2f(1020, 380);
@@ -139,7 +140,7 @@ namespace Scenario3 {
     }
 
     void BOAT() {
-        // Main hull with gradient
+        // Hull 
         glBegin(GL_POLYGON);
         glColor3f(0.6f, 0.3f, 0.1f);
         glVertex2f(320, 120);
@@ -183,7 +184,7 @@ namespace Scenario3 {
     void AIR() {
         glBegin(GL_POLYGON);
         if (isDay && !isRaining) {
-            // Day gradient
+            // Day 
             glColor3f(0.53f, 0.81f, 0.92f);
             glVertex2f(0, 480);
             glColor3f(0.65f, 0.85f, 0.95f);
@@ -227,7 +228,7 @@ namespace Scenario3 {
 
     void LAND_BOUNDARY() {
         glBegin(GL_POLYGON);
-        // Green gradient for land
+        //  land
         glColor3f(0.386f, 0.888f, 0.0f);
         glVertex2f(0, 0);
         glColor3f(0.486f, 0.988f, 0.0f);
@@ -369,7 +370,7 @@ namespace Scenario3 {
     }
 
     void WOODEN_SIGNBOARD(float x, float y) {
-        // Enhanced wooden plank with 3D effect
+        // Plank
         glBegin(GL_POLYGON);
         glColor3f(0.65f, 0.37f, 0.17f);
         glVertex2f(x - 120, y);
@@ -381,7 +382,7 @@ namespace Scenario3 {
         glVertex2f(x - 110, y + 50);
         glEnd();
 
-        // Plank border with thickness
+        // Plank border 
         glColor3f(0.36f, 0.20f, 0.09f);
         glLineWidth(4);
         glBegin(GL_LINE_LOOP);
@@ -391,7 +392,7 @@ namespace Scenario3 {
         glVertex2f(x - 110, y + 50);
         glEnd();
 
-        // Enhanced wooden posts with gradient
+        // wooden posts 
         glBegin(GL_POLYGON);
         glColor3f(0.35f, 0.18f, 0.05f);
         glVertex2f(x - 90, y - 100);
@@ -412,21 +413,20 @@ namespace Scenario3 {
         glVertex2f(x + 70, y);
         glEnd();
 
-        // Render text with shadow effect
+        
         const char* text = "MONPURA";
         void* font = GLUT_BITMAP_TIMES_ROMAN_24;
 
-        // Text shadow
+    
         glColor3f(0.2f, 0.2f, 0.2f);
         renderBitmapString(x - 58, y + 13, font, text);
 
-        // Main text
+    
         glColor3f(1.0f, 1.0f, 1.0f);
         renderBitmapString(x - 60, y + 15, font, text);
     }
 
     void PARK_BENCH(float x, float y) {
-        // Enhanced bench with 3D effect
         // Seat base
         glBegin(GL_POLYGON);
         glColor3f(0.5f, 0.25f, 0.05f);
@@ -439,7 +439,7 @@ namespace Scenario3 {
         glVertex2f(x - 50, y + 15);
         glEnd();
 
-        // Backrest with cushion effect
+        // Backrest 
         glBegin(GL_POLYGON);
         glColor3f(0.6f, 0.35f, 0.1f);
         glVertex2f(x - 50, y + 25);
@@ -467,17 +467,16 @@ namespace Scenario3 {
     }
 
     void COTTAGE(float x, float y) {
-        // ENHANCED: Larger and more detailed cottage
 
-        // Main house body with gradient and depth
+        // Main house 
         glBegin(GL_POLYGON);
-        glColor3f(0.9f, 0.63f, 0.2f);  // Light orange-brown (top)
+        glColor3f(0.9f, 0.63f, 0.2f);  
         glVertex2f(x - 80, y);
-        glColor3f(0.85f, 0.53f, 0.1f); // Medium
+        glColor3f(0.85f, 0.53f, 0.1f); 
         glVertex2f(x + 80, y);
-        glColor3f(0.8f, 0.48f, 0.08f); // Darker at top
+        glColor3f(0.8f, 0.48f, 0.08f); 
         glVertex2f(x + 80, y + 100);
-        glColor3f(0.88f, 0.58f, 0.15f); // Lighter at bottom
+        glColor3f(0.88f, 0.58f, 0.15f); 
         glVertex2f(x - 80, y + 100);
         glEnd();
 
@@ -491,8 +490,8 @@ namespace Scenario3 {
         glVertex2f(x - 80, y + 100);
         glEnd();
 
-        // Enhanced roof with overhang
-        glColor3f(0.6f, 0.15f, 0.15f); // Dark red
+        // roof with overhang
+        glColor3f(0.6f, 0.15f, 0.15f); 
         glBegin(GL_TRIANGLES);
         glVertex2f(x - 100, y + 100);
         glVertex2f(x + 100, y + 100);
@@ -516,9 +515,9 @@ namespace Scenario3 {
         }
         glEnd();
 
-        // Enhanced door with frame
+        //  door with frame
         glBegin(GL_POLYGON);
-        glColor3f(0.3f, 0.15f, 0.0f); // Dark brown door
+        glColor3f(0.3f, 0.15f, 0.0f); 
         glVertex2f(x - 25, y);
         glVertex2f(x + 25, y);
         glColor3f(0.4f, 0.2f, 0.0f);
@@ -536,16 +535,16 @@ namespace Scenario3 {
         glVertex2f(x - 25, y + 60);
         glEnd();
 
-        // Doorknob with highlight
+        // Doorknob 
         glColor3f(0.9f, 0.9f, 0.2f);
         drawCircle(x + 18, y + 30, 4);
         glColor3f(1.0f, 1.0f, 0.0f);
         drawCircle(x + 18, y + 30, 2);
 
-        // Enhanced windows with frames and curtains
+
         // Left window
         glBegin(GL_POLYGON);
-        glColor3f(0.8f, 0.95f, 1.0f); // Light blue glass
+        glColor3f(0.8f, 0.95f, 1.0f); 
         glVertex2f(x - 65, y + 60);
         glVertex2f(x - 25, y + 60);
         glVertex2f(x - 25, y + 90);
@@ -655,11 +654,11 @@ namespace Scenario3 {
         MOON();
 
         if (!isDay) {
-            drawStars(); // Draw stars only at night
+            drawStars(); 
         }
 
         if (isRaining) {
-            drawRain(); // Draw rain on top if raining
+            drawRain(); 
         }
 
         BOAT();
@@ -683,11 +682,11 @@ namespace Scenario3 {
         WOODEN_SIGNBOARD(880, 80);
         PARK_BENCH(90, 90);
 
-        // Draw the enhanced cottage
+    
         COTTAGE(1080, 75);
     }
 
-    // --- Updates and Inputs ---
+    
 
     void update() {
         if (boatMoving && boatSpeed > 0.0f) {
