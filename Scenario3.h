@@ -1,6 +1,12 @@
 #ifndef SCENARIO3_H
 #define SCENARIO3_H
 
+#include <AL/al.h>
+#include <AL/alc.h>
+#include <AL/alut.h>
+#include <iostream>
+
+
 #include <GL/glut.h>
 #include <math.h>
 #include <stdlib.h>
