@@ -7,6 +7,8 @@
 #include <time.h>
 #include <string.h>
 #include <iostream>
+#include <windows.h>
+
 
 #define SCENARIO3_MAX_STARS 150
 #define SCENARIO3_MAX_RAIN 150
