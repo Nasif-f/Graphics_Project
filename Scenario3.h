@@ -46,6 +46,54 @@ namespace Scenario3 {
 
     // --- Helper Functions
 
+    // ===== AUDIO GLOBAL VARIABLES =====
+ALuint audioBuffer;
+ALuint audioSource;
+
+// ===== INITIALIZE AUDIO =====
+void initAudio(int argc, char** argv)
+{
+    alutInit(&argc, argv);
+
+    // Load WAV file (must be PCM WAV)
+    audioBuffer = alutCreateBufferFromFile("sound.wav");
+    if (audioBuffer == AL_NONE)
+    {
+        std::cout << "Error loading sound file!" << std::endl;
+        return;
+    }
+
+    // Create source
+    alGenSources(1, &audioSource);
+    alSourcei(audioSource, AL_BUFFER, audioBuffer);
+
+    // Optional settings
+    alSourcef(audioSource, AL_GAIN, 1.0f);   // volume
+    alSourcef(audioSource, AL_PITCH, 1.0f);
+    alSourcei(audioSource, AL_LOOPING, AL_FALSE);
+}
+
+// ===== PLAY SOUND =====
+void playSound()
+{
+    alSourcePlay(audioSource);
+}
+
+// ===== STOP SOUND =====
+void stopSound()
+{
+    alSourceStop(audioSource);
+}
+
+// ===== CLEANUP AUDIO =====
+void cleanupAudio()
+{
+    alDeleteSources(1, &audioSource);
+    alDeleteBuffers(1, &audioBuffer);
+    alutExit();
+}
+
+
     void renderBitmapString(float x, float y, void* font, const char* string) {
         const char* c;
         glRasterPos2f(x, y);
