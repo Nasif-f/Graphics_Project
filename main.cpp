@@ -1,5 +1,4 @@
-#include <windows.h>
-#include <GL/glut.h>
+#include <windowsrt5558#include <GL/glut.h>
 #include "Scenario1.h"
 #include "Scenario2.h"
 #include "Scenario3.h"

@@ -983,3 +983,38 @@
 	<GL/glut.h>
 	<math.h>
 
+1768881150 source:d:\final\graphics_project\main.cpp
+	<windows.h>
+	<GL/glut.h>
+	"Scenario1.h"
+	"Scenario2.h"
+	"Scenario3.h"
+	"Scenario4.h"
+
+1768881150 d:\final\graphics_project\scenario1.h
+	<windows.h>
+	<mmsystem.h>
+	<GL/glut.h>
+	<math.h>
+	<time.h>
+	<string.h>
+	<iostream>
+
+1768881150 d:\final\graphics_project\scenario2.h
+	<GL/glut.h>
+	<math.h>
+	<string.h>
+	<iostream>
+
+1768881877 d:\final\graphics_project\scenario3.h
+	<GL/glut.h>
+	<math.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<iostream>
+
+1768881150 d:\final\graphics_project\scenario4.h
+	<GL/glut.h>
+	<math.h>
+

@@ -36,7 +36,7 @@ namespace Scenario3 {
     Star stars[SCENARIO3_MAX_STARS];
     RainDrop rain[SCENARIO3_MAX_RAIN];
 
-    // --- Helper Functions ---
+    // --- Helper Functions
 
     void renderBitmapString(float x, float y, void* font, const char* string) {
         const char* c;
